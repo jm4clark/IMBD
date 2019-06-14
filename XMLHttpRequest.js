@@ -24,7 +24,7 @@ function getSeries(searchTerm) {
         let m = JSON.parse(res.responseText);
 
         console.log(res.responseText);
-        
+
         deleteRows(resultTable);
         for (let i = 0; i < 10; i++) {
             addRowToTable(resultTable, m.Search[i].Title, m.Search[i].Year, m.Search[i].Type);
@@ -46,11 +46,18 @@ function getTitle(searchTerm) {
     }).catch(() => { console.log("Didn't work.") });
 }
 
+function getTitle(searchTerm) {
+    makeRequest("GET", `${urlBase}i=${searchTerm}`).then((res) => {
+        console.log("It work.");
+        let m = JSON.parse(res.responseText);
+
+        return res.responseText;
+
+    }).catch(() => { console.log("Didn't work.") });
+}
+
 function onPressSearch(searchTerm, resultTable) {
     let x = getSeries(searchTerm.value);
-    //console.log(x);
-    //console.log(getTitle(searchTerm.value));
-    //addRowToTable(resultTable, "title", "year", "type");
 }
 
 function addRowToTable(table, title, year, type) {
@@ -69,8 +76,9 @@ function addRowToTable(table, title, year, type) {
 
 }
 
-function deleteRows(table){
-    for(let i = 1; i < table.rows.length; i++){
+function deleteRows(table) {
+
+    for (let i = table.rows.length - 1; i > 0; i--) {
         table.deleteRow(i);
     }
 }
@@ -81,11 +89,6 @@ function createMoreDetailButton() {
     return button;
 }
 
-function movieMaker(title, year, type) {
-    let m = {
-        title: title.value,
-        year: year.value,
-        type: type.value
-    }
-    return m;
+function moreDetail() {
+
 }
