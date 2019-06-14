@@ -14,16 +14,18 @@
 
 <body>
     <!-- <form id="movieForm"> -->
-        <input type="text" placeholder="Search..." id="searchInput" required>
-        <button class="button" type="submit" onclick="onPressSearch(searchInput, resultTable)"><i>Search</i></button>
-        <table id="resultTable">
-            <tr>
-                <th>Title</th>
-                <th>Year</th>
-                <th>Type</th>
-                <th>More detail</th>
-            </tr>
-        </table>
+    <input type="text" placeholder="Search..." id="searchInput" required>
+    <button class="button" type="submit" onclick="onPressSearch(searchInput, resultTable)"><i>Search</i></button>
+    <table id="resultTable">
+        <tr>
+            <th>Title</th>
+            <th>Year</th>
+            <th>Type</th>
+            <th>More detail</th>
+        </tr>
+        <button onclick="deleteRows(resultTable)">delete all rows</button>
+    </table>
+
     <!-- </form> -->
 </body>
 <script src="XMLHttpRequest.js"></script>

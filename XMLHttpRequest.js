@@ -19,13 +19,16 @@ function makeRequest(requestType, url, sendData) {
 
 function getSeries(searchTerm) {
     console.log(`${urlBase}s=${searchTerm.value}`);
-    makeRequest("GET", `${urlBase}s=${searchTerm.value}`).then((res) => {
+    makeRequest("GET", `${urlBase}s=${searchTerm}`).then((res) => {
         console.log("It work.");
-        let m = res.responseText;
-        
+        let m = JSON.parse(res.responseText);
+
         console.log(res.responseText);
-        console.log(m.Type);
-        addRowToTable(resultTable, "title", "year", "type");
+        
+        deleteRows(resultTable);
+        for (let i = 0; i < 10; i++) {
+            addRowToTable(resultTable, m.Search[i].Title, m.Search[i].Year, m.Search[i].Type);
+        }
     }).catch(() => { console.log("Didn't work.") });
 }
 
@@ -35,18 +38,19 @@ function getTitle(searchTerm) {
     makeRequest("GET", `${urlBase}t=${searchTerm}`).then((res) => {
         console.log("It work.");
         let m = JSON.parse(res.responseText);
-        
+
         //console.log(res.responseText);
         console.log(m.Type);
+        deleteRows(resultTable);
         addRowToTable(resultTable, m.Title, m.Year, m.Type);
     }).catch(() => { console.log("Didn't work.") });
 }
 
 function onPressSearch(searchTerm, resultTable) {
-    let x = getTitle(searchTerm.value);
+    let x = getSeries(searchTerm.value);
     //console.log(x);
     //console.log(getTitle(searchTerm.value));
-    addRowToTable(resultTable, "title", "year", "type");
+    //addRowToTable(resultTable, "title", "year", "type");
 }
 
 function addRowToTable(table, title, year, type) {
@@ -65,9 +69,15 @@ function addRowToTable(table, title, year, type) {
 
 }
 
+function deleteRows(table){
+    for(let i = 1; i < table.rows.length; i++){
+        table.deleteRow(i);
+    }
+}
+
 function createMoreDetailButton() {
     let button = document.createElement("button");
-    button.innerHTML = "<button>button</button>";
+    button.innerHTML = `<button>button</button>`;
     return button;
 }
 
