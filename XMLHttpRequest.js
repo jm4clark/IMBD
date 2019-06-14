@@ -21,8 +21,11 @@ function getSeries(searchTerm) {
     console.log(`${urlBase}s=${searchTerm.value}`);
     makeRequest("GET", `${urlBase}s=${searchTerm.value}`).then((res) => {
         console.log("It work.");
+        let m = res.responseText;
+        
         console.log(res.responseText);
-        return res.responseText;
+        console.log(m.Type);
+        addRowToTable(resultTable, "title", "year", "type");
     }).catch(() => { console.log("Didn't work.") });
 }
 
@@ -31,13 +34,17 @@ function getTitle(searchTerm) {
     console.log(`${urlBase}s=${searchTerm}`);
     makeRequest("GET", `${urlBase}t=${searchTerm}`).then((res) => {
         console.log("It work.");
-        console.log(res.responseText);
-
+        let m = JSON.parse(res.responseText);
+        
+        //console.log(res.responseText);
+        console.log(m.Type);
+        addRowToTable(resultTable, m.Title, m.Year, m.Type);
     }).catch(() => { console.log("Didn't work.") });
 }
 
 function onPressSearch(searchTerm, resultTable) {
-    //let x = getTitle(searchTerm.value);
+    let x = getTitle(searchTerm.value);
+    //console.log(x);
     //console.log(getTitle(searchTerm.value));
     addRowToTable(resultTable, "title", "year", "type");
 }
