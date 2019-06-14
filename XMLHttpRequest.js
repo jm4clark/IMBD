@@ -22,17 +22,53 @@ function getSeries(searchTerm) {
     makeRequest("GET", `${urlBase}s=${searchTerm.value}`).then((res) => {
         console.log("It work.");
         console.log(res.responseText);
+        return res.responseText;
     }).catch(() => { console.log("Didn't work.") });
 }
 
 function getTitle(searchTerm) {
+    console.log(searchTerm);
     console.log(`${urlBase}s=${searchTerm}`);
     makeRequest("GET", `${urlBase}t=${searchTerm}`).then((res) => {
         console.log("It work.");
         console.log(res.responseText);
+
     }).catch(() => { console.log("Didn't work.") });
 }
 
-// '#movieForm'.submit(function() {
-    
-// })
+function onPressSearch(searchTerm, resultTable) {
+    //let x = getTitle(searchTerm.value);
+    //console.log(getTitle(searchTerm.value));
+    addRowToTable(resultTable, "title", "year", "type");
+}
+
+function addRowToTable(table, title, year, type) {
+
+    var row = table.insertRow(1);
+
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    var cell4 = row.insertCell(3);
+
+    cell1.innerHTML = title;
+    cell2.innerHTML = year;
+    cell3.innerHTML = type;
+    cell4.innerHTML = createMoreDetailButton().innerHTML;
+
+}
+
+function createMoreDetailButton() {
+    let button = document.createElement("button");
+    button.innerHTML = "<button>button</button>";
+    return button;
+}
+
+function movieMaker(title, year, type) {
+    let m = {
+        title: title.value,
+        year: year.value,
+        type: type.value
+    }
+    return m;
+}
