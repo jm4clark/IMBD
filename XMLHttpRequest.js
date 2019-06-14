@@ -27,7 +27,7 @@ function getSeries(searchTerm) {
 
         deleteRows(resultTable);
         for (let i = 0; i < 10; i++) {
-            addRowToTable(resultTable, m.Search[i].Title, m.Search[i].Year, m.Search[i].Type);
+            addRowToTable(resultTable, m.Search[i].Title, m.Search[i].Year, m.Search[i].Type, i);
         }
     }).catch(() => { console.log("Didn't work.") });
 }
@@ -60,7 +60,7 @@ function onPressSearch(searchTerm, resultTable) {
     let x = getSeries(searchTerm.value);
 }
 
-function addRowToTable(table, title, year, type) {
+function addRowToTable(table, title, year, type, i) {
 
     var row = table.insertRow(1);
 
@@ -72,7 +72,7 @@ function addRowToTable(table, title, year, type) {
     cell1.innerHTML = title;
     cell2.innerHTML = year;
     cell3.innerHTML = type;
-    cell4.innerHTML = createMoreDetailButton().innerHTML;
+    cell4.innerHTML = createMoreDetailButton(i).innerHTML;
 
 }
 
@@ -83,12 +83,12 @@ function deleteRows(table) {
     }
 }
 
-function createMoreDetailButton() {
+function createMoreDetailButton(i) {
     let button = document.createElement("button");
-    button.innerHTML = `<button>button</button>`;
+    button.innerHTML = `<button onclick='moreDetail(${i})' id='moreDetail${i}'>button</button>`;
     return button;
 }
 
-function moreDetail() {
-
+function moreDetail(i) {
+    console.log(i);
 }
